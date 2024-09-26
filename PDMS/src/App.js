@@ -35,6 +35,7 @@ import "assets/css/nucleo-icons.css";
 import "assets/css/nucleo-svg.css";
 import { insuranceRoutes } from "routes";
 import { patientRoutes } from "routes";
+import OtpVerification from "layouts/authentication/otp-verification";
 
 export default function App() {
   const [controller, dispatch] = useArgonController();
@@ -167,6 +168,12 @@ export default function App() {
             path="authentication/face-verification"
             element={<FaceVerification />}
             key="face-verification"
+          />
+          <Route
+            exact
+            path="authentication/otp-verification"
+            element={<OtpVerification />}
+            key="otp-verification"
           />
 
           {/* if admin is logged in and any random route is accessed the page is redirected to admin dashboard */}
