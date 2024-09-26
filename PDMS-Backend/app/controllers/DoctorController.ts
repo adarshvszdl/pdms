@@ -5,6 +5,7 @@ import { doctorService } from "app/services/DoctorService";
 import { IDoctor } from "app/models/Doctor";
 import { PasswordUtil } from "app/common/utils/PasswordUtil";
 import { Role } from "app/common/enums";
+import { commonService } from "app/services/CommonService";
 
 class DoctorController {
   public login: RequestHandler = async (req: Request, res: Response) => {
@@ -24,6 +25,8 @@ class DoctorController {
       if (!isAuth) {
         return ResponseHelper.handleError(res, "Invalid credentials");
       }
+
+      commonService.generateAndSendOTP(existingDoctor.doctorId);
 
       return ResponseHelper.handleSuccess(res, "Logged in successfully", {
         doctorId: existingDoctor.doctorId,
@@ -59,12 +62,12 @@ class DoctorController {
       const doctorId = res.locals.id;
       let patients = await doctorService.getAuthorizedPatients(doctorId);
 
-      patients = patients.map((patient: any)=>{
+      patients = patients.map((patient: any) => {
         return {
           ...patient,
-          faceRegistrationLink: `/authentication/face-registration?id=${patient.patientId}&role=${Role.PATIENT}&email=${patient.email}`
-        }
-      })
+          faceRegistrationLink: `/authentication/face-registration?id=${patient.patientId}&role=${Role.PATIENT}&email=${patient.email}`,
+        };
+      });
 
       return ResponseHelper.handleSuccess(
         res,

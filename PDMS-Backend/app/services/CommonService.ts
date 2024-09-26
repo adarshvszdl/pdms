@@ -4,14 +4,43 @@ import { faceUtil } from "app/common/utils/FaceUtil";
 import { FaceData } from "app/models/FaceData";
 import { FaceDataRepository } from "app/repositories/FaceDataRepository";
 import { twilioSMSService } from "./TwilioSMSService";
+import { OtpLogRepository } from "app/repositories/OtpLogRepository";
+import { DateUtil } from "app/utils/DateUtil";
+import { IOtpLog } from "app/models/OtpLog";
+import {
+  ModifiedPathsSnapshot,
+  Document,
+  Model,
+  Types,
+  ClientSession,
+  DocumentSetOptions,
+  QueryOptions,
+  UpdateQuery,
+  AnyObject,
+  PopulateOptions,
+  MergeType,
+  Query,
+  SaveOptions,
+  ToObjectOptions,
+  FlattenMaps,
+  Require_id,
+  UpdateWithAggregationPipeline,
+  pathsToSkip,
+  Error,
+} from "mongoose";
 
 const mimetypes = require("mime-types");
 
 export class CommonService {
   private faceDataRepository: FaceDataRepository;
+  private otpLogRepository: OtpLogRepository;
 
-  constructor(faceDateRepository = new FaceDataRepository()) {
+  constructor(
+    faceDateRepository = new FaceDataRepository(),
+    otpLogRepository = new OtpLogRepository()
+  ) {
     this.faceDataRepository = faceDateRepository;
+    this.otpLogRepository = otpLogRepository;
   }
 
   async registerFace(
@@ -64,16 +93,19 @@ export class CommonService {
     return false;
   }
 
-  async generateAndSendOTP(message?: string, mobile?: string): Promise<void> {
+  async generateAndSendOTP(
+    userId: string,
+    message?: string,
+    mobile?: string
+  ): Promise<void> {
     const otp = await twilioSMSService.sendOTPMessage(message, mobile);
 
-    // await this.otpLogRepository.createOtpLog({
-    //     otp,
-    //     mobile,
-    //     expiry: await DateUtil.afterMinutes(otpExpiryMinutes),
-    //     isVerified: false
-    // });
-}
+    await this.otpLogRepository.createOtpLog({
+      otp,
+      expiry: DateUtil.afterMinutes(twilioSMSService.otpExpiryInMinutes),
+      userId,
+    } as IOtpLog);
+  }
 }
 
 export const commonService = new CommonService();

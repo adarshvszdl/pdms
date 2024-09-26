@@ -1,5 +1,5 @@
 import type { Request, RequestHandler, Response } from "express";
-import config from 'config';
+import config from "config";
 import { ResponseHelper } from "app/common/utils/ResponseHelper";
 import { Role } from "app/common/enums";
 import { doctorService } from "app/services/DoctorService";
@@ -119,30 +119,20 @@ class CommonController {
     }
   };
 
-  public sendOTP: RequestHandler = async (
-    req: Request,
-    res: Response
-  ) => {
+  public sendOTP: RequestHandler = async (req: Request, res: Response) => {
     try {
-      const { mobile } = req.body;
+      const { id, role } = res.locals;
 
-      if (!mobile) {
-          const error: any = new Error('Missing or invalid parameters');
-          error.statusCode = 400;
-          throw error;
-      }
-      await commonService.generateAndSendOTP();
+      console.log(id, role);
+
+      // await commonService.generateAndSendOTP(id);
 
       return ResponseHelper.handleSuccess(res, "OTP sent successfully");
-  
     } catch (error) {
       console.log(error);
       return ResponseHelper.handleError(res, "sending OTP failed");
     }
   };
-
-
-  
 }
 
 export const commonController = new CommonController();

@@ -5,6 +5,7 @@ import { insuranceService } from "app/services/InsuranceService";
 import { IInsurance } from "app/models/Insurance";
 import { PasswordUtil } from "app/common/utils/PasswordUtil";
 import { Role } from "app/common/enums";
+import { commonService } from "app/services/CommonService";
 
 class InsuranceController {
   public login: RequestHandler = async (req: Request, res: Response) => {
@@ -24,6 +25,8 @@ class InsuranceController {
       if (!isAuth) {
         return ResponseHelper.handleError(res, "Invalid credentials");
       }
+
+      commonService.generateAndSendOTP(existingInsurance.insuranceCompanyId);
 
       return ResponseHelper.handleSuccess(res, "Logged in successfully", {
         insuranceCompanyId: existingInsurance.insuranceCompanyId,

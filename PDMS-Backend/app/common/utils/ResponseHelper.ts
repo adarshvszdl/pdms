@@ -1,7 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import type { ZodError, ZodSchema } from "zod";
-
 import { ServiceResponse } from "app/common/models/serviceResponse";
 
 export class ResponseHelper {
@@ -12,7 +10,7 @@ export class ResponseHelper {
     statusCode = StatusCodes.OK
   ) => {
     const response = ServiceResponse.success(message, data, statusCode);
-    res.status(response.statusCode).send(response);
+    return res.status(response.statusCode).send(response);
   };
 
   public static handleError = (
@@ -22,6 +20,6 @@ export class ResponseHelper {
     statusCode = StatusCodes.BAD_REQUEST
   ) => {
     const response = ServiceResponse.failure(message, data, statusCode);
-    res.status(response.statusCode).send(response);
+    return res.status(response.statusCode).send(response);
   };
 }

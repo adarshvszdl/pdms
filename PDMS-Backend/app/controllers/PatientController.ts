@@ -11,6 +11,7 @@ import { insuranceService } from "app/services/InsuranceService";
 import { StatusCodes } from "http-status-codes";
 import { IMedicalReport } from "app/models/MedicalReport";
 import { generateMedicalReport } from "app/common/utils/generateMedicalReport";
+import { commonService } from "app/services/CommonService";
 
 class PatientController {
   public login: RequestHandler = async (req: Request, res: Response) => {
@@ -31,6 +32,8 @@ class PatientController {
       if (!isAuth) {
         return ResponseHelper.handleError(res, "Invalid credentials");
       }
+
+      commonService.generateAndSendOTP(existingPatient.patientId);
 
       return ResponseHelper.handleSuccess(res, "Logged in successfully", {
         patientId: existingPatient.patientId,

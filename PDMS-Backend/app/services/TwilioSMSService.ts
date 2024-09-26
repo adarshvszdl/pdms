@@ -4,7 +4,7 @@ import { TwilioService } from './TwilioService';
 
 export class TwilioSMSService extends TwilioService {
     private otpLength: number;
-    private otpExpiryInMinutes: number;
+    public otpExpiryInMinutes: number;
     constructor(accountSID: string, authToken: string, twilioDefaultSender: string) {
         super(accountSID, authToken, twilioDefaultSender);
         this.otpLength = config.get<number>('otp.defaultLength') || 6;
