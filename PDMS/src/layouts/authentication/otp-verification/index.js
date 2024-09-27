@@ -3,18 +3,17 @@ import PropTypes from "prop-types";
 
 // Argon Dashboard 2 MUI components
 import ArgonBox from "components/ArgonBox";
-import ArgonInput from "components/ArgonInput";
 import ArgonButton from "components/ArgonButton";
 import { ToastContainer, toast } from "react-toastify";
 
 // Authentication layout components
 import OtpRegistrationLayout from "layouts/authentication/components/OtpRegistrationLayout";
-import { registerFaceService } from "services/common/registerFace";
 
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import VerificationInput from "react-verification-input";
 import { Box, Link, Typography } from "@mui/material";
+import { verifyOTPService } from "../../../services/common/verifyOTP";
 import "./otpVerification.css";
 
 OtpVerification.propTypes = {
@@ -43,35 +42,21 @@ function OtpVerification() {
   }, [seconds]);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    setId(urlParams.get("id"));
-    setRole(urlParams.get("role"));
-  }, []);
-
-  useEffect(() => {
     console.log(otp);
   }, [otp]);
 
   const handleSubmit = async () => {
-    if (!id || !role) {
-      toast("Invalid URL");
-    } else {
-      try {
-        // TODO : call verify OTP API 
-        // const response = await registerFaceService({
-        //   id,
-        //   email,
-        //   role,
-        //   descriptor: Object.values(faces[0].descriptor),
-        //   screenshot,
-        // });
-        // toast(response.message);
-        // setTimeout(() => {
-        //   navigate("/");
-        // }, 3000);
-      } catch (error) {
-        toast(error.message);
-      }
+    try {
+      const response = await verifyOTPService({
+        otp,
+      });
+      console.log(response);
+      toast(response.message);
+      setTimeout(() => {
+        navigate("/face-verification");
+      }, 3000);
+    } catch (error) {
+      toast(error.message);
     }
   };
 
@@ -85,7 +70,6 @@ function OtpVerification() {
       setSeconds(3);
       clearInterval(intervalId);
     }, 3000);
-
   };
 
   return (

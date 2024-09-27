@@ -88,7 +88,8 @@ function Illustration({ role, title }) {
             console.log(response);
             console.log(auth);
             await setAuth(dispatch, auth);
-            navigate("/authentication/face-verification");
+            // navigate("/authentication/face-verification");
+            navigate("/authentication/otp-verification");
           } catch (error) {
             toast(error.message);
           }
