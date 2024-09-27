@@ -28,11 +28,11 @@ export class TwilioSMSService extends TwilioService {
             message: message
         };
 
-        const twilioReponse = await this.publishMessage(params);
+        // const twilioReponse = await this.publishMessage(params);
         console.log(mobile);
         console.log(message);
         console.log(otp);
-        console.log(twilioReponse);
+        // console.log(twilioReponse);
 
         return otp;
     }
