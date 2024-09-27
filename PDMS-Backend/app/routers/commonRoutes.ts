@@ -18,7 +18,12 @@ commonRouter.post(
   commonController.authorizeFace
 );
 commonRouter.post(
-  "/send-otp", 
+  "/authorize-otp",
+  RoleValidator.validator(),
+  commonController.authorizeOTP
+);
+commonRouter.post(
+  "/send-otp",
   (req: Request, res: Response, next: NextFunction) => {
     console.log("middleware");
 

@@ -93,6 +93,24 @@ export class CommonService {
     return false;
   }
 
+  async authorizeOTP(id: any, otp: string) {
+    const latestOTP = await this.otpLogRepository.findLatestLogForUser(id);
+
+    if (!latestOTP) {
+      console.log("no OTP");
+      return "OTP_NOT_FOUND";
+    }
+
+    if (latestOTP?.otp === otp) {
+      console.log("OTP is correct");
+      this.otpLogRepository.verifyAllOtp(id, otp);
+      return true;
+    }
+
+    console.log("OTP is incorrect");
+    return "OTP_INCORRECT";
+  }
+
   async generateAndSendOTP(
     userId: string,
     message?: string,

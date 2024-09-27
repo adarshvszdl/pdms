@@ -38,4 +38,15 @@ export class OtpLogRepository {
       }
     );
   }
+
+  async verifyAllOtp(userId: string, otp: string) {
+    await OtpLog.updateMany(
+      {
+        userId,
+      },
+      {
+        hasVerified: true,
+      }
+    );
+  }
 }

@@ -115,7 +115,69 @@ class CommonController {
       return ResponseHelper.handleError(res, "Authorization failed");
     } catch (error) {
       console.log(error);
-      return ResponseHelper.handleError(res, "Registration failed");
+      return ResponseHelper.handleError(res, "Authorization failed");
+    }
+  };
+
+  public authorizeOTP: RequestHandler = async (req: Request, res: Response) => {
+    try {
+      const { id, role } = res.locals;
+      const { otp } = req.body;
+      let user = null;
+      let service: any = doctorService;
+
+      console.log(id, role);
+
+      switch (role) {
+        case Role.DOCTOR:
+          user = await doctorService.findById(id);
+          break;
+        case Role.PATIENT:
+          user = await patientService.findById(id);
+          break;
+        case Role.INSURANCE:
+          user = await insuranceService.findById(id);
+          break;
+        case Role.ADMIN:
+          user = await adminService.findById(id);
+          break;
+      }
+
+      if (!user) {
+        return ResponseHelper.handleError(
+          res,
+          "User does not exist",
+          {
+            id,
+          },
+          StatusCodes.BAD_REQUEST
+        );
+      }
+
+      const isOTPAuthorized = await commonService.authorizeOTP(id, otp);
+
+      if (isOTPAuthorized === true) {
+        return ResponseHelper.handleSuccess(res, "Authorized successfully");
+      } else if (isOTPAuthorized === "OTP_NOT_FOUND") {
+        return ResponseHelper.handleError(
+          res,
+          "OTP not found",
+          null,
+          StatusCodes.BAD_REQUEST
+        );
+      } else if (isOTPAuthorized === "OTP_INCORRECT") {
+        return ResponseHelper.handleError(
+          res,
+          "Incorrect OTP",
+          null,
+          StatusCodes.UNAUTHORIZED
+        );
+      }
+
+      return ResponseHelper.handleError(res, "Authorization failed");
+    } catch (error) {
+      console.log(error);
+      return ResponseHelper.handleError(res, "Authorization failed");
     }
   };
 

@@ -53,7 +53,7 @@ function OtpVerification() {
       console.log(response);
       toast(response.message);
       setTimeout(() => {
-        navigate("/face-verification");
+        navigate("/authentication/face-verification");
       }, 3000);
     } catch (error) {
       toast(error.message);
@@ -97,7 +97,7 @@ function OtpVerification() {
               classNames={{
                 character: "character",
               }}
-              passwordMode={true}
+              // passwordMode={true}
             />
           </Box>
           {seconds > 0 ? (
