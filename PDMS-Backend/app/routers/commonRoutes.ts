@@ -14,7 +14,7 @@ commonRouter.post(
 );
 commonRouter.post(
   "/authorize-face",
-  RoleValidator.validator,
+  RoleValidator.validator(),
   commonController.authorizeFace
 );
 commonRouter.post(
