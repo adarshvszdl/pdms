@@ -17,6 +17,7 @@
     "@mui/styled-engine": "5.13.2",
     "@mui/x-date-pickers": "^6.6.0",
     "@pathofdev/react-tag-input": "1.0.7",
+    "react-verification-input": "^4.1.2",
     "@react-pdf/renderer": "^3.1.12",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "14.0.0",
