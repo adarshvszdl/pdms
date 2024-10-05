@@ -157,7 +157,7 @@ class CommonController {
       const isOTPAuthorized = await commonService.authorizeOTP(id, otp);
 
       if (isOTPAuthorized === true) {
-        return ResponseHelper.handleSuccess(res, "Authorized successfully");
+        return ResponseHelper.handleSuccess(res, "OTP verified");
       } else if (isOTPAuthorized === "OTP_NOT_FOUND") {
         return ResponseHelper.handleError(
           res,
