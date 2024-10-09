@@ -76,7 +76,7 @@ function Illustration({ role, title }) {
             const auth = JSON.parse(localStorage.getItem("auth"));
             await setAuth(dispatch, auth);
             // navigate(`/patient/profile/${auth.id}`);
-            navigate("/authentication/face-verification");
+            navigate("/authentication/otp-verification");
           } catch (error) {
             toast(error.message);
           }
@@ -100,7 +100,7 @@ function Illustration({ role, title }) {
             const auth = JSON.parse(localStorage.getItem("auth"));
             await setAuth(dispatch, auth);
             // navigate("/insurance/patients");
-            navigate("/authentication/face-verification");
+            navigate("/authentication/otp-verification");
           } catch (error) {
             toast(error.message);
           }
