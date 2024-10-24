@@ -15,6 +15,7 @@ import VerificationInput from "react-verification-input";
 import { Box, Link, Typography } from "@mui/material";
 import { verifyOTPService } from "../../../services/common/verifyOTP";
 import "./otpVerification.css";
+import { sendOTPService } from "services/common/sendOTP";
 
 OtpVerification.propTypes = {
   role: PropTypes.string,
@@ -61,15 +62,17 @@ function OtpVerification() {
   };
 
   const handleResendOtp = async () => {
-    // TODO: call resend otp
-    setResendingOtp(true);
-
-    const intervalId = setInterval(() => {
-      toast("otp sent successfully");
+    try {
+      setResendingOtp(true);
+      const response = await sendOTPService({
+        otp,
+      });
       setResendingOtp(false);
       setSeconds(3);
-      clearInterval(intervalId);
-    }, 3000);
+      toast("OTP resent successfully");
+    } catch (error) {
+      toast(error.message);
+    }
   };
 
   return (

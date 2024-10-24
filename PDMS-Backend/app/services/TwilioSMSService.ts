@@ -13,7 +13,7 @@ export class TwilioSMSService extends TwilioService {
 
     async sendOTPMessage(messageTemplate?:  string, mobile?: string): Promise<string> {
         if (!messageTemplate || !messageTemplate.includes('[OTP]')  || !messageTemplate.includes('[minutes]')) {
-            messageTemplate = "Our PDMS verification code is: [OTP]. This code is for multi-factor authentication (MFA) and will expire in [minutes] minutes. Please do not share this code with anyone."
+            messageTemplate = "Our Guardian Shield verification code is: [OTP]. This code is for multi-factor authentication (MFA) and will expire in [minutes] minutes. Please do not share this code with anyone."
         }
 
         if (!mobile) {
@@ -28,7 +28,7 @@ export class TwilioSMSService extends TwilioService {
             message: message
         };
 
-        // const twilioReponse = await this.publishMessage(params);
+        const twilioReponse = await this.publishMessage(params);
         console.log(mobile);
         console.log(message);
         console.log(otp);

@@ -27,8 +27,8 @@ import { hospitalRoutes, adminRoutes } from "routes";
 import { useArgonController, setMiniSidenav } from "context";
 
 // Images
-import brand from "assets/images/logo-ct.png";
-import brandDark from "assets/images/logo-ct-dark.png";
+import brand from "assets/images/logo.png";
+import brandDark from "assets/images/logo.png";
 
 // Icon Fonts
 import "assets/css/nucleo-icons.css";

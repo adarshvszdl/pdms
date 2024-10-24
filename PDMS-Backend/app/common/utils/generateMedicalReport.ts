@@ -9,7 +9,7 @@ export const generateMedicalReport = (data: any, doc: any) => {
   doc.page.height = pageSize[1];
 
   // logo
-  doc.image("assets/images/logo.jpg", {
+  doc.image("assets/images/logo.png", {
     fit: [50, 50],
     align: "center",
     valign: "center",
@@ -28,7 +28,7 @@ export const generateMedicalReport = (data: any, doc: any) => {
   doc
     .fontSize(10)
     .text(
-      "PDMS Hospital, Sydney",
+      "Guardian Shield Hospital, Sydney",
       150 + headingOffsetFromLeft,
       40 + headingOffsetFromTop
     );

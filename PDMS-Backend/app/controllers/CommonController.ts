@@ -187,7 +187,7 @@ class CommonController {
 
       console.log(id, role);
 
-      // await commonService.generateAndSendOTP(id);
+      await commonService.generateAndSendOTP(id);
 
       return ResponseHelper.handleSuccess(res, "OTP sent successfully");
     } catch (error) {

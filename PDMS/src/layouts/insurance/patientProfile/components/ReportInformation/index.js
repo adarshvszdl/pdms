@@ -32,7 +32,7 @@ function ReportInformation({ patientReports}) {
                 medication={item.medication}
                 hospitalId={"d82971db-33b3-43ca-ab88-07de1ff71184"}
                 reportId={item.medicalReportId}
-                hospitalName={"PDMS"}
+                hospitalName={"Guardian Shield"}
               />
             );
           })}

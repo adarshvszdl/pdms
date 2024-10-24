@@ -1,7 +1,7 @@
 {
   "name": "pdms",
   "version": "3.0.0",
-  "author": "PDMS",
+  "author": "Guardian Shield",
   "license": "MIT",
   "description": "Patient data management system",
   "engines": {

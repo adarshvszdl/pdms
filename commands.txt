@@ -9,7 +9,7 @@ docker rmi id
 docker logs id
 
 
-ssh -i "pdms-key.pem" ec2-user@ec2-54-252-180-42.ap-southeast-2.compute.amazonaws.com
+ssh -i "pdms-key.pem" ec2-user@ec2-54-252-17-147.ap-southeast-2.compute.amazonaws.com
 
 First time installation on amazon linux ec2 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
