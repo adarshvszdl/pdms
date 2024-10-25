@@ -21,4 +21,8 @@ healthCheckRouter.post("/", (_req: Request, res: Response) => {
   ResponseHelper.handleSuccess(res, "healthy", {});
 });
 
+healthCheckRouter.get("/", (_req: Request, res: Response) => {
+  ResponseHelper.handleSuccess(res, "healthy", {});
+});
+
 export default healthCheckRouter;
